@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 
@@ -198,6 +199,13 @@ export function HeroSection() {
 
   return (
     <div ref={container} className="relative h-screen w-full bg-background z-0">
+      <Image
+        src="/proyects/fondo-hero.png"
+        alt="Hero"
+        width={1920}
+        height={1080}
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      />
       <div className="hero-content relative w-full h-full flex flex-col justify-end p-10 text-foreground section origin-bottom">
         <div className="timer text-9xl font-heading tabular-nums">
           <span className="inline-block">0</span>
@@ -211,8 +219,8 @@ export function HeroSection() {
             <span className="dynamic-word inline-block whitespace-nowrap"></span>
           </div>
         </div>
-        <div className="border-b-2 w-full border-border barra-progress"></div>
-        <ul className="flex justify-around items-center list-none menu-item text-muted-foreground mt-4 text-sm font-mono tracking-widest uppercase">
+        <div className="border-b-2 w-full border-border barra-progress border-white"></div>
+        <ul className="flex justify-around items-center list-none menu-item text-muted-foreground mt-4 text-sm font-mono tracking-widest uppercase text-white">
           <li className="hover:text-primary transition-colors cursor-pointer">
             Cultura
           </li>

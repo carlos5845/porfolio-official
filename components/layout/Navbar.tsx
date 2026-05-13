@@ -5,10 +5,57 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const containerRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const handleTransition = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+
+    // Bloquear clicks durante la transición
+    gsap.set(".transition-panel-container", { pointerEvents: "auto" });
+
+    gsap.to(".transition-panel", {
+      yPercent: -100, // Sube desde top: 100% para cubrir la pantalla
+      duration: 0.8,
+      stagger: 0.05,
+      ease: "power4.inOut",
+      onComplete: () => {
+        // Ejecutar navegación
+        if (href.startsWith("#")) {
+          const section = document.querySelector(href);
+          if (section) section.scrollIntoView({ behavior: "instant" });
+        } else {
+          router.push(href);
+        }
+
+        setOpen(false);
+
+        // Esperar renderizado y animar hacia afuera
+        setTimeout(() => {
+          gsap.to(".transition-panel", {
+            yPercent: -200, // Sube para desaparecer por arriba
+            duration: 0.8,
+            stagger: 0.05,
+            ease: "power4.inOut",
+            onComplete: () => {
+              // Resetear posición
+              gsap.set(".transition-panel", { yPercent: 0 });
+              gsap.set(".transition-panel-container", {
+                pointerEvents: "none",
+              });
+            },
+          });
+        }, 100);
+      },
+    });
+  };
 
   let timerSplit: SplitText;
   useGSAP(() => {
@@ -78,7 +125,7 @@ export default function Navbar() {
       {/* Overlay */}
       <div
         aria-hidden={!open}
-        className="fixed inset-0 z-50 bg-pine-teal-600 flex flex-col justify-end p-8 transition-[clip-path] duration-700 ease-[cubic-bezier(0.77,0,0.175,1)]"
+        className="fixed inset-0 z-50 bg-pine-teal-600 overflow-y-auto transition-[clip-path] duration-700 ease-[cubic-bezier(0.77,0,0.175,1)]"
         style={{
           clipPath: open
             ? "circle(150% at calc(100% - 3rem) 3rem)"
@@ -86,36 +133,53 @@ export default function Navbar() {
           pointerEvents: open ? "auto" : "none",
         }}
       >
-        <ul className="list-none flex flex-col">
-          {[
-            { label: "Inicio", href: "/" },
-            { label: "Proyectos", href: "/proyectos" },
-            { label: "Sobre mí", href: "/sobre-mi" },
-            { label: "Contacto", href: "/contacto" },
-          ].map((item, i) => (
-            <li
-              key={item.href}
-              className="overflow-hidden border-t border-foreground/20 last:border-b"
-            >
-              <Link
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="group flex items-center justify-between py-6 font-bold text-primary-foreground no-underline hover:opacity-70 transition-opacity"
-                style={{
-                  fontSize: "clamp(2rem, 6vw, 4rem)",
-                  letterSpacing: "-0.02em",
-                  transform: open ? "translateY(0)" : "translateY(110%)",
-                  transition: `transform 0.6s cubic-bezier(0.23,1,0.32,1) ${0.1 + i * 0.07}s`,
-                }}
+        <div className="min-h-full flex flex-col justify-end p-8 pt-32 pb-12">
+          <ul className="list-none flex flex-col">
+            {[
+              { label: "Inicio", href: "#home" },
+              { label: "Sobre mí", href: "#about" },
+              { label: "Experiencia", href: "#experience" },
+              { label: "Servicios", href: "#services" },
+              { label: "Proceso", href: "#process" },
+              { label: "Skills", href: "#skills" },
+              { label: "Proyectos", href: "#projects" },
+              { label: "Contacto", href: "#contact" },
+            ].map((item, i) => (
+              <li
+                key={item.href}
+                className="overflow-hidden border-t border-foreground/20 last:border-b"
               >
-                {item.label}
-                <span className="text-2xl opacity-30 inline-block -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                <Link
+                  href={item.href}
+                  onClick={(e) => handleTransition(e, item.href)}
+                  className="group flex items-center justify-between py-6 font-bold text-primary-foreground no-underline hover:opacity-70 transition-opacity"
+                  style={{
+                    fontSize: "clamp(2rem, 6vw, 4rem)",
+                    letterSpacing: "-0.02em",
+                    transform: open ? "translateY(0)" : "translateY(110%)",
+                    transition: `transform 0.6s cubic-bezier(0.23,1,0.32,1) ${0.1 + i * 0.07}s`,
+                  }}
+                >
+                  {item.label}
+                  <span className="text-2xl opacity-30 inline-block -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Transition Panels */}
+      <div className="transition-panel-container fixed inset-0 z-[9999] pointer-events-none flex">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div
+            key={i}
+            className="transition-panel w-1/5 h-screen bg-foreground absolute top-full"
+            style={{ left: `${(i - 1) * 20}%` }}
+          ></div>
+        ))}
       </div>
     </div>
   );

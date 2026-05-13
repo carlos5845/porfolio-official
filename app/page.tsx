@@ -13,14 +13,30 @@ import {
 export default function Home() {
   return (
     <main>
-      <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <ServicesSection />
-      <ProcessSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
+      <div id="home">
+        <HeroSection />
+      </div>
+      <div id="about">
+        <AboutSection />
+      </div>
+      <div id="experience">
+        <ExperienceSection />
+      </div>
+      <div id="services">
+        <ServicesSection />
+      </div>
+      <div id="process">
+        <ProcessSection />
+      </div>
+      <div id="skills">
+        <SkillsSection />
+      </div>
+      <div id="projects">
+        <ProjectsSection />
+      </div>
+      <div id="contact">
+        <ContactSection />
+      </div>
     </main>
   );
 }
