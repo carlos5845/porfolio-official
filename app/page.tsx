@@ -1,13 +1,26 @@
-import {AboutSection, ContactSection, HeroSection, ProjectsSection, SkillsSection} from "@/components/sections";
+import {
+  AboutSection,
+  ContactSection,
+  ExperienceSection,
+  HeroSection,
+  ProcessSection,
+  ProjectsSection,
+  ServicesSection,
+  SkillsSection,
+  TestimonialsSection,
+} from "@/components/sections";
 
 export default function Home() {
-    return (
-        <main>
-            <HeroSection/>
-            <AboutSection/>
-            <SkillsSection/>
-            <ProjectsSection/>
-            <ContactSection/>
-        </main>
-    );
+  return (
+    <main>
+      <HeroSection />
+      <AboutSection />
+      <ExperienceSection />
+      <ServicesSection />
+      <ProcessSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <ContactSection />
+    </main>
+  );
 }

@@ -14,6 +14,9 @@ importers:
       '@gsap/react':
         specifier: ^2.1.2
         version: 2.1.2(gsap@3.15.0)(react@19.2.4)
+      '@thesvg/react':
+        specifier: ^2.1.10
+        version: 2.1.10(react@19.2.4)
       animejs:
         specifier: ^4.4.1
         version: 4.4.1
@@ -769,6 +772,12 @@ packages:
 
   '@tailwindcss/postcss@4.2.4':
     resolution: {integrity: sha512-wgAVj6nUWAolAu8YFvzT2cTBIElWHkjZwFYovF+xsqKsW2ADxM/X2opxj5NsF/qVccAOjRNe8X2IdPzMsWyHTg==}
+
+  '@thesvg/react@2.1.10':
+    resolution: {integrity: sha512-xBD/fhlwelYDWfyOCIQiSARzKXoKW/Duld9HOlnoeSh13jRmZPeTD8lyWOefsznIetCTJ9SP/qILsLe5QmkW6w==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: '>=18'
 
   '@ts-morph/common@0.27.0':
     resolution: {integrity: sha512-Wf29UqxWDpc+i61k3oIOzcUfQt79PIT9y/MWfAGlrkjg6lBC1hwDECLXPVJAhWjiGbfBCxZd65F/LIZF3+jeJQ==}
@@ -3696,6 +3705,10 @@ snapshots:
       '@tailwindcss/oxide': 4.2.4
       postcss: 8.5.12
       tailwindcss: 4.2.4
+
+  '@thesvg/react@2.1.10(react@19.2.4)':
+    dependencies:
+      react: 19.2.4
 
   '@ts-morph/common@0.27.0':
     dependencies:
