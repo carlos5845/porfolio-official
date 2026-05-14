@@ -9,24 +9,6 @@ import Image from "next/image";
 
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 
-gsap.registerEffect({
-  name: "counter",
-  effect: (targets: any, config: any) => {
-    const obj = { val: 0 };
-
-    return gsap.to(obj, {
-      val: config.end,
-      duration: config.duration,
-      ease: config.ease,
-      onUpdate: () => {
-        targets.forEach((el: HTMLElement) => {
-          el.textContent = Math.floor(obj.val).toString();
-        });
-      },
-    });
-  },
-});
-
 export function HeroSection() {
   const container = useRef<HTMLDivElement | null>(null);
 
@@ -95,39 +77,43 @@ export function HeroSection() {
           });
       };
 
-      const tl = gsap.timeline();
+      // Bloquear el scroll durante la animación inicial
+      document.body.style.overflow = "hidden";
 
-      tl.add(
-        gsap.effects.counter(".timer", {
-          end: 100,
-          duration: 2,
-          ease: "power2.out",
-        }),
-        0,
+      const tl = gsap.timeline({
+        onComplete: () => {
+          // Restaurar el scroll y ocultar el loader para liberar eventos
+          document.body.style.overflow = "";
+          gsap.set(".intro-loader", { pointerEvents: "none", display: "none" });
+        },
+      });
+
+      // 1. Aparece el texto central suavemente sobre los paneles (con un ligero delay inicial)
+      tl.fromTo(
+        ".intro-logo",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.5 },
       )
-        .fromTo(
-          ".timer",
-          { scale: 0.5, transformOrigin: "left center" },
-          { scale: 1.2, duration: 2, ease: "power2.out" },
-          0,
-        )
-        // Pequeño delay de 0.3s antes de ocultar
-        .to({}, { duration: 0.3 })
-        .add(() => {
-          timerSplit = new SplitText(".timer", { type: "chars" });
-
-          gsap.to(timerSplit.chars, {
-            x: -100,
-            autoAlpha: 0,
-            stagger: 0.05,
-            duration: 0.6,
-            ease: "power3.inOut",
-            onComplete: () => {
-              gsap.set(".timer", { display: "none" });
-            },
-          });
+        // 2. Pequeña pausa cinemática y el texto se difumina hacia arriba
+        .to(".intro-logo", {
+          opacity: 0,
+          y: -20,
+          duration: 0.8,
+          ease: "power2.in",
+          delay: 0.6,
         })
-        // Empieza 0.5s después de la orden de ocultar los números
+        // 3. Los paneles continúan subiendo para descubrir la pantalla principal
+        .to(
+          ".intro-panel",
+          {
+            yPercent: -100, // Sube hasta desaparecer por arriba
+            duration: 1.2,
+            stagger: 0.1,
+            ease: "power4.inOut",
+          },
+          "-=0.4",
+        )
+        // 4. Inicia la animación del contenido principal (Hero)
         .from(
           split.chars,
           {
@@ -137,7 +123,7 @@ export function HeroSection() {
             duration: 1,
             ease: "power4.out",
           },
-          "+=0.5",
+          "-=0.6",
         )
         .fromTo(
           ".barra-progress",
@@ -162,9 +148,9 @@ export function HeroSection() {
 
       return () => {
         split.revert();
-        if (timerSplit) timerSplit.revert();
         if (dynamicSplit) dynamicSplit.revert();
         if (rotatorTl) rotatorTl.kill();
+        document.body.style.overflow = ""; // Limpieza de seguridad
       };
     },
     { scope: container },
@@ -199,18 +185,30 @@ export function HeroSection() {
 
   return (
     <div ref={container} className="relative h-screen w-full bg-background z-0">
+      {/* Intro Loader Panels */}
+      <div className="intro-loader fixed inset-0 z-[9999] pointer-events-auto flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 flex">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div
+              key={i}
+              className="intro-panel w-1/5 h-screen bg-foreground absolute top-0"
+              style={{ left: `${(i - 1) * 20}%` }}
+            ></div>
+          ))}
+        </div>
+        <div className="intro-logo z-10 font-heading text-4xl md:text-6xl tracking-[0.3em] font-bold text-background opacity-0">
+          CARLOSJS
+        </div>
+      </div>
+
       <Image
         src="/proyects/fondo-hero.png"
         alt="Hero"
         width={1920}
         height={1080}
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-80"
       />
       <div className="hero-content relative w-full h-full flex flex-col justify-end p-10 text-foreground section origin-bottom">
-        <div className="timer text-9xl font-heading tabular-nums">
-          <span className="inline-block">0</span>
-        </div>
-
         <div className="z-10 font-heading text-left text-[clamp(1.5rem,7vw,200px)] md:text-[clamp(3rem,10vw,200px)] leading-none flex flex-col uppercase">
           <div className="title text-[clamp(1.5rem,7vw,200px)] md:text-[clamp(3rem,10vw,200px)]s">
             HOLA, SOY
