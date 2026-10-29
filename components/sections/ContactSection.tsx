@@ -4,9 +4,11 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, MapPin } from "lucide-react";
+import { Github, Linkedin } from "@thesvg/react";
 import owo from "@/public/owo.png";
 import Image from "next/image";
+
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function ContactSection() {
@@ -97,42 +99,71 @@ export function ContactSection() {
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10 footer-content flex flex-col items-center text-center">
-        <p className="text-xl md:text-2xl font-mono uppercase tracking-[0.3em] text-muted-foreground mb-8">
-          ¿Tienes un proyecto en mente?
-        </p>
-        <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-heading font-black leading-none tracking-tighter mb-16 md:mb-2 hover:text-primary transition-colors duration-500 cursor-default">
-          HABLAMOS?
-        </h2>
-        <Image src={owo} alt="owo" />
+        <div className="flex items-center gap-2 text-sm font-mono uppercase tracking-[0.3em] text-primary mb-6">
+          <MapPin className="w-4 h-4" />
+          <span>Puno, Perú · Disponible para Proyectos</span>
+        </div>
 
-        <button
-          ref={buttonRef}
-          className="group relative flex items-center justify-center w-40 h-40 md:w-56 md:h-56 rounded-full bg-primary text-primary-foreground font-bold text-lg md:text-2xl tracking-wider uppercase overflow-hidden transition-colors hover:bg-foreground hover:text-background"
+        <p className="text-xl md:text-2xl font-mono uppercase tracking-[0.3em] text-muted-foreground mb-6">
+          ¿Tienes una idea o proyecto en mente?
+        </p>
+        <h2 className="text-5xl md:text-8xl lg:text-[9rem] font-heading font-black leading-none tracking-tighter mb-12 hover:text-primary transition-colors duration-500 cursor-default">
+          ¿HABLAMOS?
+        </h2>
+
+        <div className="mb-10 w-24 md:w-32 opacity-80">
+          <Image src={owo} alt="Mascot" className="w-full h-auto" />
+        </div>
+
+        <a
+          href="mailto:contacto@carlosdavid.dev"
+          className="inline-block"
         >
-          <span className="relative z-10 flex items-center gap-2">
-            Iniciar{" "}
-            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-          </span>
-        </button>
+          <button
+            ref={buttonRef}
+            className="group relative flex items-center justify-center w-40 h-40 md:w-56 md:h-56 rounded-full bg-primary text-primary-foreground font-bold text-lg md:text-2xl tracking-wider uppercase overflow-hidden transition-colors hover:bg-foreground hover:text-background shadow-2xl"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              Escríbeme{" "}
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
+            </span>
+          </button>
+        </a>
 
         {/* Bottom Bar */}
-        <div className="w-full mt-32 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-wrap gap-4 md:gap-6">
-            {["Github", "LinkedIn", "Twitter", "Email"].map((social) => (
-              <a
-                key={social}
-                href="#"
-                className="social-link text-sm font-mono tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors p-2"
-              >
-                {social}
-              </a>
-            ))}
+        <div className="w-full mt-24 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex flex-wrap items-center gap-6 md:gap-8">
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
+            </a>
+            <a
+              href="mailto:contacto@carlosdavid.dev"
+              className="social-link inline-flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Mail className="w-4 h-4 text-primary" />
+              <span>Email</span>
+            </a>
           </div>
 
           <div className="text-sm font-light text-muted-foreground flex gap-4 uppercase tracking-widest">
-            <span>© {new Date().getFullYear()} Carlos David</span>
+            <span>© {new Date().getFullYear()} Carlos David Quispe Chata</span>
             <span className="text-border">|</span>
-            <span>All Rights Reserved</span>
+            <span>Puno, Perú</span>
           </div>
         </div>
       </div>

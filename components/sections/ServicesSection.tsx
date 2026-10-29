@@ -10,20 +10,24 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 const services = [
   {
-    title: "Front-End",
-    description: "Desarrollo de interfaces inmersivas, ultra-rápidas y pixel-perfect usando React y Next.js.",
+    title: "Backend & APIs",
+    description:
+      "Diseño e implementación de arquitecturas escalables, endpoints RESTful seguros y servicios robustos utilizando Laravel, Node.js y Python.",
   },
   {
-    title: "UI/UX Design",
-    description: "Diseño de experiencias centradas en el usuario con prototipado de alta fidelidad en Figma.",
+    title: "Bases de Datos",
+    description:
+      "Modelado relacional estructurado, normalización y optimización de consultas complejas en PostgreSQL y MySQL con integridad transaccional.",
   },
   {
-    title: "Motion",
-    description: "Animaciones avanzadas con GSAP para crear interacciones fluidas y cinemáticas.",
+    title: "Full Stack Web",
+    description:
+      "Construcción integral de sistemas web y plataformas interactivas con Next.js, React y Tailwind CSS, asegurando máxima fluidez y diseño responsivo.",
   },
   {
-    title: "Back-End",
-    description: "Arquitecturas escalables y APIs robustas con Laravel para respaldar productos digitales.",
+    title: "Datos e IA",
+    description:
+      "Entrenamiento de modelos de Machine Learning (redes neuronales y clasificadores) junto con análisis estadístico para automatización y predicción.",
   },
 ];
 
@@ -50,12 +54,12 @@ export function ServicesSection() {
             end: "bottom 80%",
             scrub: true,
           },
-        }
+        },
       );
 
       // Reveal descriptions
-      const descriptions = gsap.utils.toArray(".service-desc");
-      descriptions.forEach((desc: any) => {
+      const descriptions = gsap.utils.toArray<HTMLElement>(".service-desc");
+      descriptions.forEach((desc) => {
         gsap.fromTo(
           desc,
           { y: 30, opacity: 0 },
@@ -68,7 +72,7 @@ export function ServicesSection() {
             opacity: 1,
             duration: 0.8,
             ease: "power3.out",
-          }
+          },
         );
       });
 
@@ -76,7 +80,7 @@ export function ServicesSection() {
         splitTitles.revert();
       };
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   return (
@@ -87,18 +91,20 @@ export function ServicesSection() {
       <div className="max-w-7xl mx-auto w-full">
         <h2 className="text-xl md:text-2xl text-muted-foreground font-mono uppercase tracking-[0.3em] mb-16 md:mb-24 flex items-center gap-4">
           <span className="w-12 h-[1px] bg-primary/50"></span>
-          Especialidades
+          Áreas de Especialidad
         </h2>
 
         <div className="flex flex-col space-y-16 md:space-y-24 services-list">
           {services.map((service, idx) => (
-            <div key={idx} className="flex flex-col md:flex-row md:items-end justify-between border-b border-border/50 pb-8 group">
-              
-              <h3 className="text-5xl md:text-8xl lg:text-9xl font-heading font-black tracking-tighter service-title select-none">
+            <div
+              key={idx}
+              className="flex flex-col md:flex-row md:items-end justify-between border-b border-border/50 pb-8 group"
+            >
+              <h3 className="text-4xl md:text-7xl lg:text-8xl font-heading font-black tracking-tighter service-title select-none">
                 {service.title}
               </h3>
-              
-              <p className="text-lg md:text-xl text-muted-foreground/80 font-light max-w-sm mt-6 md:mt-0 md:text-right service-desc">
+
+              <p className="text-base md:text-xl text-muted-foreground/80 font-light max-w-md mt-6 md:mt-0 md:text-right service-desc leading-relaxed">
                 {service.description}
               </p>
             </div>

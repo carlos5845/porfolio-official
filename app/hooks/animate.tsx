@@ -20,7 +20,7 @@ const useAnimatedValue = ({
                               onComplete,
                           }: UseAnimatedValueOptions) => {
     const [animatedValue, setAnimatedValue] = useState(from);
-    const animationRef = useRef<any>(null);
+    const animationRef = useRef<ReturnType<typeof animate> | null>(null);
 
     useEffect(() => {
         const animatable = {value: from};

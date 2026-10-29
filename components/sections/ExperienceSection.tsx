@@ -10,27 +10,27 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const experiences = [
   {
     id: 1,
-    role: "Desarrollador Web Freelance",
-    company: "Independiente",
-    period: "2026 - Presente",
+    role: "Co-fundador y Desarrollador Backend",
+    company: "Statcont",
+    period: "2024 - Presente",
     description:
-      "Desarrollo de aplicaciones web modernas, landing pages interactivas y plataformas e-commerce utilizando React, Next.js y Tailwind CSS. Implementación de animaciones avanzadas y optimización de rendimiento.",
+      "Participación activa en el diseño de arquitectura de software, modelado de bases de datos relacionales y desarrollo de componentes backend escalables para soluciones administrativas y de consultoría empresarial.",
   },
   {
     id: 2,
-    role: "Estudiante de Ingeniería de Sistemas",
-    company: "Universidad",
-    period: "2026 - Presente",
+    role: "Desarrollo de Proyectos Independientes",
+    company: "Freelance / Software Propio",
+    period: "2023 - Presente",
     description:
-      "Formación integral en ciencias de la computación, arquitectura de software, bases de datos y metodologías ágiles. Participación en proyectos académicos destacando en el área de desarrollo frontend.",
+      "Desarrollo integral de aplicaciones web, sistemas de gestión interna y soluciones backend especializadas para control de existencias, procesos administrativos e inventarios multisucursal utilizando Laravel, Node.js y Python.",
   },
   {
     id: 3,
-    role: "Desarrollador Frontend Trainee",
-    company: "Agencia Creativa",
-    period: "2025 - 2026",
+    role: "Formación Académica en Ingeniería de Sistemas",
+    company: "Universidad Nacional del Altiplano (Puno)",
+    period: "2022 - 2027",
     description:
-      "Apoyo en la maquetación de interfaces de usuario desde Figma a código real. Colaboración con diseñadores para asegurar fidelidad visual y experiencias de usuario inmersivas.",
+      "Formación rigurosa en ciencias de la computación, arquitectura de software, bases de datos relacionales y diseño de algoritmos. Implementación de proyectos aplicados de Machine Learning y análisis estadístico de datos.",
   },
 ];
 
@@ -73,8 +73,8 @@ export function ExperienceSection() {
       );
 
       // Animate timeline items
-      const items = gsap.utils.toArray(".timeline-item");
-      items.forEach((item: any, i) => {
+      const items = gsap.utils.toArray<HTMLElement>(".timeline-item");
+      items.forEach((item, i) => {
         gsap.fromTo(
           item,
           { y: 100, opacity: 0 },
@@ -87,7 +87,7 @@ export function ExperienceSection() {
             opacity: 1,
             duration: 0.8,
             ease: "power3.out",
-            delay: i * 0.1, // Slight delay based on index for natural stagger if multiple in view
+            delay: i * 0.1,
           },
         );
       });
@@ -107,11 +107,10 @@ export function ExperienceSection() {
             <h2 className="text-5xl md:text-7xl font-heading font-bold leading-tight tracking-tighter mb-6">
               Experiencia
               <br />
-              <span className="text-muted-foreground">& Evolución</span>
+              <span className="text-muted-foreground">& Proyectos</span>
             </h2>
-            <p className="text-lg text-muted-foreground/80 font-light max-w-md">
-              Mi trayectoria profesional es un proceso continuo de aprendizaje,
-              iteración y pasión por crear productos digitales excepcionales.
+            <p className="text-lg text-muted-foreground/80 font-light max-w-md leading-relaxed">
+              Trayectoria enfocada en la construcción de sistemas confiables, arquitectura de datos y desarrollo backend de alto valor funcional.
             </p>
           </div>
         </div>
@@ -124,7 +123,7 @@ export function ExperienceSection() {
           </div>
 
           <div className="space-y-24 pb-24">
-            {experiences.map((exp, index) => (
+            {experiences.map((exp) => (
               <div
                 key={exp.id}
                 className="timeline-item relative pl-8 md:pl-24"
@@ -142,7 +141,7 @@ export function ExperienceSection() {
                     </span>
                   </div>
 
-                  <h4 className="text-lg text-muted-foreground">
+                  <h4 className="text-lg text-muted-foreground font-medium">
                     {exp.company}
                   </h4>
 

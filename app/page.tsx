@@ -1,6 +1,7 @@
 import {
   AboutSection,
   ContactSection,
+  EventsSection,
   ExperienceSection,
   HeroSection,
   ProcessSection,
@@ -33,6 +34,12 @@ export default function Home() {
       </div>
       <div id="projects">
         <ProjectsSection />
+      </div>
+      <div id="events">
+        <EventsSection />
+      </div>
+      <div id="testimonials">
+        <TestimonialsSection />
       </div>
       <div id="contact">
         <ContactSection />

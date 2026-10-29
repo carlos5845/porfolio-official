@@ -26,9 +26,9 @@ export function TestimonialsSection() {
 
   useGSAP(
     () => {
-      const items = gsap.utils.toArray(".testimonial-item");
+      const items = gsap.utils.toArray<HTMLElement>(".testimonial-item");
 
-      items.forEach((item: any, i) => {
+      items.forEach((item) => {
         // Blur to sharp animation
         gsap.fromTo(
           item,
@@ -74,7 +74,7 @@ export function TestimonialsSection() {
           >
             <Quote className="w-12 h-12 md:w-16 md:h-16 text-primary/50 mb-8" />
             <h3 className="text-3xl md:text-5xl lg:text-6xl font-heading font-medium leading-tight md:leading-tight mb-12 text-foreground">
-              "{test.quote}"
+              &ldquo;{test.quote}&rdquo;
             </h3>
             <div className="flex flex-col items-center">
               <p className="text-xl font-bold text-foreground mb-1">{test.name}</p>

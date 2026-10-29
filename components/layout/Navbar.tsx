@@ -57,7 +57,6 @@ export default function Navbar() {
     });
   };
 
-  let timerSplit: SplitText;
   useGSAP(() => {
     const split = new SplitText(".nat", {
       type: "chars",
@@ -71,6 +70,7 @@ export default function Navbar() {
       delay: 2,
     });
   });
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -143,6 +143,7 @@ export default function Navbar() {
               { label: "Proceso", href: "#process" },
               { label: "Skills", href: "#skills" },
               { label: "Proyectos", href: "#projects" },
+              { label: "Eventos", href: "#events" },
               { label: "Contacto", href: "#contact" },
             ].map((item, i) => (
               <li
