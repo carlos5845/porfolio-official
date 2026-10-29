@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: "Carlos David Quispe Chata | Software Developer · Backend & IA",
   description:
     "Portafolio profesional de Carlos David Quispe Chata. Estudiante de Ingeniería de Sistemas en la Universidad Nacional del Altiplano. Desarrollo de software, arquitectura backend, bases de datos y Machine Learning.",
+  icons: {
+    icon: "/logo_porfolio.jpg",
+    shortcut: "/logo_porfolio.jpg",
+    apple: "/logo_porfolio.jpg",
+  },
 };
 
 export default function RootLayout({
