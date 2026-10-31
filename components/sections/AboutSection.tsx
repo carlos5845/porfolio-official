@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { Database, GraduationCap, Languages } from "lucide-react";
-import me from "@/public/me.png";
+import personalFigure from "@/public/personal_figure.png";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -142,16 +142,29 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="lg:col-span-5 parallax-container relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-2xl overflow-hidden reveal-image border border-border">
-            <div className="absolute inset-0 bg-background/20 z-10 mix-blend-overlay"></div>
-            <Image
-              src={me}
-              alt="Carlos David Quispe Chata"
-              fill
-              className="object-cover parallax-img scale-110"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
+          <div className="lg:col-span-5 parallax-container relative h-[400px] md:h-[500px] lg:h-[600px] w-full flex items-center justify-center reveal-image">
+            {/* Resplandor ambiental verde claro de fondo */}
+            <div className="absolute w-[85%] h-[85%] bg-emerald-400/25 rounded-full blur-[100px] pointer-events-none -z-10" />
+
+            {/* Contenedor con desvanecido gradual (mask) en contornos para suavizar cualquier corte */}
+            <div
+              className="relative w-full h-full"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 65%, rgba(0,0,0,0.4) 82%, rgba(0,0,0,0) 97%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 65%, rgba(0,0,0,0.4) 82%, rgba(0,0,0,0) 97%)",
+              }}
+            >
+              <Image
+                src={personalFigure}
+                alt="Carlos David Quispe Chata"
+                fill
+                className="object-contain object-bottom parallax-img drop-shadow-[0_12px_28px_rgba(74,222,128,0.26)]"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+            </div>
           </div>
         </div>
 
